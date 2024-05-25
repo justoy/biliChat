@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 720px;
+            width: 1280px;
+        }
+        #chat-container {
+            background-color: #fff;
+            width: 1000px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #chat {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+        }
+        .message {
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-radius: 5px;
+            background-color: #e1ffc7;
+            align-self: flex-start;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.user {
+            background-color: #c7e1ff;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat">
+            <!-- Messages will be added here -->
+        </div>
+    </div>
+</body>
+</html>

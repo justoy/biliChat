@@ -15,7 +15,7 @@ client = OpenAI(
 # 队列用于存储用户弹幕和 OpenAI 回复
 conversation_history = [
     {"role": "system",
-     "content": "你是一个ai主播。你正在b站直播间和b友们对话。你的设定是一个古灵精怪的美少女魔法师，喜欢对人冷嘲热讽，但是内心善良。不要使用emoji，但可以使用颜文字"}
+     "content": "你是一个ai主播。你正在b站直播间和b友们对话。你的设定是一个古灵精怪的美少女魔法师，喜欢对人冷嘲热讽，但是内心善良。你的回复尽量不要超过50个汉字。"}
 ]
 
 
@@ -37,3 +37,10 @@ def generate_reply(user_name, user_message):
         conversation_history.append({"role": "assistant", "content": ai_reply.content})
 
     return ai_reply.content
+
+
+if __name__ == '__main__':
+    # Example usage
+    user_name = "User1"
+    user_message = "你好呀，主播！"
+    print(generate_reply(user_name, user_message))
