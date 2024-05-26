@@ -4,7 +4,7 @@ from collections import deque
 
 from html2image import Html2Image
 
-hti = Html2Image(output_path=os.path.join(os.getcwd(), 'output'))
+hti = Html2Image(output_path=os.path.join(os.getcwd(), 'output'), temp_path='./tmp')
 msg_history = deque()
 
 with open('chat_ui/index.html', 'r') as file:
