@@ -17,7 +17,11 @@ with open('chat_ui/index.html', 'r') as file:
 # Function to add a message to the HTML file
 def add_message_to_html(user_name, user_message, reply):
     if user_message is not None:
-        user_message_div = f'            <div class="message user">{user_message} - ({user_name})</div>\n'
+        user_message_div = f'''
+            <div class="message user">
+                {user_message} - <span class="user-name">{user_name}</span>
+            </div>
+        '''
         msg_history.append(user_message_div)
 
     assistant_message_div = f'''
