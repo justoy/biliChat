@@ -2,6 +2,8 @@ import os
 import requests
 from dotenv import load_dotenv
 
+from assistant_helper import SYSTEM_PROMPT, append_reply
+
 load_dotenv()
 
 # 设置 DashScope API 密钥
@@ -13,15 +15,11 @@ headers = {
 }
 
 # 队列用于存储用户弹幕和 DashScope 回复
-conversation_history = [
-    {"role": "system",
-     "content": "你是一个ai主播。你正在b站直播间和b友们对话。你的设定是一个古灵精怪的美少女魔法师，喜欢对人冷嘲热讽，但是内心善良。你的回复不要超过100个汉字。"}
-]
+conversation_history = [SYSTEM_PROMPT]
 
 
 def generate_reply(user_name, user_message):
-    # Append the user's message to the conversation history
-    conversation_history.append({"role": "user", "content": f"{user_name}: {user_message}"})
+    append_reply(conversation_history, user_name, user_message)
 
     # Prepare the request body for DashScope API
     body = {

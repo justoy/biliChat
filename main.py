@@ -24,6 +24,12 @@ def push_stream(user_name, user_message, reply):
     capture_html_to_image(html)
 
 
+def write_first_message():
+    first_message = "你好，我是一个可爱的聊天机器人。请用弹幕跟我聊天吧。"
+    html = add_message_to_html(None, None, first_message)
+    capture_html_to_image(html)
+
+
 @monitor.on("DANMU_MSG")
 async def recv(event):
     # 弹幕文本
@@ -39,10 +45,11 @@ async def recv(event):
     # 将对话内容推流到 Bilibili 直播间
     push_stream(user_name, user_message, reply)
 
+
 if __name__ == "__main__":
     stream_thread = threading.Thread(target=streamutil.start)
     stream_thread.daemon = True
     stream_thread.start()
     print("stream thread started")
+    write_first_message()
     sync(monitor.connect())
-

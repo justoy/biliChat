@@ -5,6 +5,7 @@ from collections import deque
 from html2image import Html2Image
 
 hti = Html2Image(output_path=os.path.join(os.getcwd(), 'output'), temp_path='./tmp')
+avatar_path = os.path.join(os.getcwd(), "chat_ui/avatar.webp")
 msg_history = deque()
 
 with open('chat_ui/index.html', 'r') as file:
@@ -15,9 +16,16 @@ with open('chat_ui/index.html', 'r') as file:
 
 # Function to add a message to the HTML file
 def add_message_to_html(user_name, user_message, reply):
-    user_message_div = f'            <div class="message user">{user_message} - ({user_name})</div>\n'
-    assistant_message_div = f'            <div class="message">{reply}</div>\n'
-    msg_history.append(user_message_div)
+    if user_message is not None:
+        user_message_div = f'            <div class="message user">{user_message} - ({user_name})</div>\n'
+        msg_history.append(user_message_div)
+
+    assistant_message_div = f'''
+    <div class="message-container">
+        <img src="{avatar_path}" alt="Avatar" class="avatar">
+        <div class="message">{reply}</div>
+    </div>
+    '''
     msg_history.append(assistant_message_div)
 
     while len(msg_history) > 10:
