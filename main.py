@@ -3,6 +3,7 @@ import threading
 
 from bilibili_api import sync
 
+import streamutil
 from biliclient import get_monitor
 from imageutil import add_message_to_html, capture_html_to_image
 from qwen_assistant import generate_reply
@@ -39,5 +40,9 @@ async def recv(event):
     push_stream(user_name, user_message, reply)
 
 if __name__ == "__main__":
+    stream_thread = threading.Thread(target=streamutil.start)
+    stream_thread.daemon = True
+    stream_thread.start()
+    print("stream thread started")
     sync(monitor.connect())
 
