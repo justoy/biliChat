@@ -3,11 +3,15 @@ import threading
 import time
 
 from bilibili_api import sync
+from dotenv import load_dotenv
 
 import streamutil
 from biliclient import get_monitor
 from imageutil import add_message_to_html, capture_html_to_image
 from qwen_assistant import generate_reply
+from validate_env import check_env_vars
+
+load_dotenv()
 
 # Create a global queue
 message_queue = queue.Queue()
@@ -51,6 +55,8 @@ async def recv(event):
 
 
 if __name__ == "__main__":
+    check_env_vars()
+
     stream_thread = threading.Thread(target=streamutil.start)
     stream_thread.daemon = True
     stream_thread.start()
