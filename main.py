@@ -1,5 +1,6 @@
 import queue
 import threading
+import time
 
 from bilibili_api import sync
 
@@ -16,16 +17,19 @@ monitor = get_monitor()
 
 
 # 推流到 Bilibili 直播间
-def push_stream(user_name, user_message, reply):
+def push_stream():
     # 构建推流内容
-    content = f"{user_name}：{user_message}\nAI：{reply}"
-    print("Streaming content: ", content)
-    html = add_message_to_html(user_name, user_message, reply)
-    capture_html_to_image(html)
+    while True:
+        user_name, user_message, reply = message_queue.get(block=True)
+        content = f"{user_name}：{user_message}\nAI：{reply}"
+        print("Streaming content: ", content)
+        html = add_message_to_html(user_name, user_message, reply)
+        capture_html_to_image(html)
+        time.sleep(0.2)
 
 
 def write_first_message():
-    first_message = "你好，我是一个可爱的聊天机器人。请用弹幕跟我聊天吧。"
+    first_message = "你好，我是一个可爱的魔法少女。请用弹幕跟我聊天吧。"
     html = add_message_to_html(None, None, first_message)
     capture_html_to_image(html)
 
@@ -43,13 +47,15 @@ async def recv(event):
     print(f"生成回复：{reply}")
 
     # 将对话内容推流到 Bilibili 直播间
-    push_stream(user_name, user_message, reply)
+    message_queue.put((user_name, user_message, reply))
 
 
 if __name__ == "__main__":
     stream_thread = threading.Thread(target=streamutil.start)
     stream_thread.daemon = True
     stream_thread.start()
-    print("stream thread started")
+    message_thread = threading.Thread(target=push_stream)
+    message_thread.daemon = True
+    message_thread.start()
     write_first_message()
     sync(monitor.connect())

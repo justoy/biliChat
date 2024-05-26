@@ -1,4 +1,6 @@
 import os
+import random
+
 import requests
 from dotenv import load_dotenv
 
@@ -23,7 +25,7 @@ def generate_reply(user_name, user_message):
 
     # Prepare the request body for DashScope API
     body = {
-        'model': 'qwen-turbo',
+        'model': get_model(),
         "input": {
             "messages": conversation_history
         },
@@ -43,6 +45,15 @@ def generate_reply(user_name, user_message):
     conversation_history.append({"role": "assistant", "content": ai_reply})
 
     return ai_reply
+
+
+def get_model():
+    n = random.randint(0, 100)
+    if n < 30:
+        return 'qwen-long'
+    if n < 70:
+        return 'qwen-turbo'
+    return 'qwen-plus'
 
 
 if __name__ == '__main__':
