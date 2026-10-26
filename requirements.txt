@@ -9,7 +9,7 @@ beautifulsoup4==4.12.3
 bilibili-api-python==16.2.0
 blinker==1.8.2
 Brotli==1.1.0
-certifi==2024.2.2
+certifi==2026.10.19
 charset-normalizer==3.3.2
 click==8.1.7
 colorama==0.4.6
